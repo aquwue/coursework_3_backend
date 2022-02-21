@@ -14,7 +14,7 @@ class TestGenresView:
         return g
 
     def test_get_genres(self, client, genre):
-        response = client.get(self.url)
+        response = client.get(self.url, )
         assert response.status_code == 200
         assert response.json == [
             {"id": genre.id, "name": genre.name},
@@ -32,10 +32,10 @@ class TestGenreView:
         return g
 
     def test_get_genre(self, client, genre):
-        response = client.get(self.url.format(genre_id=genre.id))
+        response = client.get(self.url.format(genre_id=genre.id), )
         assert response.status_code == 200
         assert response.json == {"id": genre.id, "name": genre.name}
 
     def test_genre_not_found(self, client):
-        response = client.get(self.url.format(genre_id=1))
+        response = client.get(self.url.format(genre_id=1), )
         assert response.status_code == 404
