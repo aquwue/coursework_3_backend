@@ -1,5 +1,5 @@
 from project.config import DevelopmentConfig
-from project.dao.models import *  # noqa F401, F403
+from project.dao.models import Genre, Movie, Director, User # noqa F401, F403
 from project.server import create_app
 from project.setup_db import db
 
