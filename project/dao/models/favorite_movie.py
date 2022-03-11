@@ -4,7 +4,7 @@ from project.setup_db import db
 
 class FavoriteMovie(BaseMixin, db.Model):
     __tablename__ = "favorite_movies"
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     user = db.relationship("User")
     movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))
     movie = db.relationship("Movie")
