@@ -13,7 +13,7 @@ parser.add_argument('status', type=str)
 @movies_ns.route("/")
 class MoviesView(Resource):
     @movies_ns.expect(parser)
-    @auth_required
+    # @auth_required
     @movies_ns.response(200, "OK")
     def get(self):
         """Get all movies"""
@@ -26,7 +26,7 @@ class MoviesView(Resource):
 
 @movies_ns.route("/<int:movie_id>")
 class MovieView(Resource):
-    @auth_required
+    # @auth_required
     @movies_ns.response(200, "OK")
     @movies_ns.response(404, "movie not found")
     def get(self, movie_id: int):

@@ -4,7 +4,7 @@ from project.setup_db import db
 
 class Movie(BaseMixin, db.Model):
     __tablename__ = 'movie'
-    id = db.Column(db.Integer, primary_key=True)
+    # id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     trailer = db.Column(db.String(255), nullable=False)
