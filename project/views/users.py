@@ -30,10 +30,12 @@ class UserView(Resource):
     @users_ns.response(404, "User not found")
     def get(self, user_id: int):
         """Get user by id"""
-        try:
-            return UsersService(db.session).get_item_by_id(user_id)
-        except ItemNotFound:
-            abort(404, message="User not found")
+        req_json = request.json
+        if req_json.get("id") == user_id:
+            try:
+                return UsersService(db.session).get_item_by_id(req_json.get("id"))
+            except ItemNotFound:
+                abort(404, message="User not found")
 
 
 @users_ns.route("/password/<int:user_id>")
@@ -43,13 +45,14 @@ class UserPatchView(Resource):
     @users_ns.response(404, "User not found")
     def put(self, user_id: int):
         req_json = request.json
-        if not req_json:
-            abort(400, message="Bad Request")
-        if not req_json.get("password_1") or not req_json.get("password_2"):
-            abort(400, message="Bad Request")
-        if not req_json.get("id"):
-            req_json['id'] = user_id
-        try:
-            return UsersService(db.session).update_pass(req_json)
-        except ItemNotFound:
-            abort(404, message="User not found")
+        if req_json.get("id") == user_id:
+            if not req_json:
+                abort(400, message="Bad Request")
+            if not req_json.get("password_1") or not req_json.get("password_2"):
+                abort(400, message="Bad Request")
+            # if not req_json.get("id"):
+            #     req_json['id'] = user_id
+            try:
+                return UsersService(db.session).update_pass(req_json)
+            except ItemNotFound:
+                abort(404, message="User not found")
