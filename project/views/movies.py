@@ -6,7 +6,7 @@ from project.tools.security import auth_required
 
 movies_ns = Namespace("movies")
 parser = reqparse.RequestParser()
-parser.add_argument('page', type=int)
+parser.add_argument('page', type=int) 
 parser.add_argument('status', type=str)
 
 
