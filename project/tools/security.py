@@ -43,7 +43,7 @@ def auth_required(func):
         except Exception as e:
             print("JWT Decode Exception", e)
             abort(401)
-        return func(*args, **kwargs, user_id_1=user_id)
+        return func(*args, **kwargs, user_id=user_id)
 
     return wrapper
 
