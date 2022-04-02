@@ -28,7 +28,7 @@ class UserView(Resource):
     @auth_required
     @users_ns.response(200, "OK")
     @users_ns.response(404, "User not found")
-    def get(self, user_id):# int):
+    def get(self, user_id):
         """Get user by id"""
         req_json = request.json
         if req_json.get("id") == user_id:
@@ -43,7 +43,7 @@ class UserPatchView(Resource):
     @auth_required
     @users_ns.response(200, "OK")
     @users_ns.response(404, "User not found")
-    def put(self, user_id):# int):
+    def put(self, user_id):
         req_json = request.json
         if not req_json:
             abort(400, message="Bad Request")
