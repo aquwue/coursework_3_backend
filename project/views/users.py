@@ -25,33 +25,31 @@ parser.add_argument('page', type=int)
 
 @users_ns.route("/")
 class UserView(Resource):
-    @auth_required
+
     @users_ns.response(200, "OK")
     @users_ns.response(404, "User not found")
+    @auth_required
     def get(self, user_id):
         """Get user by id"""
-        req_json = request.json
-        if req_json.get("id") == user_id:
-            try:
-                return UsersService(db.session).get_item_by_id(req_json.get("id"))
-            except ItemNotFound:
-                abort(404, message="User not found")
+        try:
+            return UsersService(db.session).get_item_by_id(user_id)
+        except ItemNotFound:
+            abort(404, message="User not found")
 
 
 @users_ns.route("/password/")
 class UserPatchView(Resource):
-    @auth_required
+
     @users_ns.response(200, "OK")
     @users_ns.response(404, "User not found")
+    @auth_required
     def put(self, user_id):
         req_json = request.json
         if not req_json:
             abort(400, message="Bad Request")
         if not req_json.get("password_1") or not req_json.get("password_2"):
             abort(400, message="Bad Request")
-        if not req_json.get("id"):
-            req_json['id'] = user_id
         try:
-            return UsersService(db.session).update_pass(req_json)
+            return UsersService(db.session).update_pass(req_json, user_id)
         except ItemNotFound:
             abort(404, message="User not found")

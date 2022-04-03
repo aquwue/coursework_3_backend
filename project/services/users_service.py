@@ -40,10 +40,10 @@ class UsersService(BaseService):
         user = UserDAO(self._db_session).update(data_in)
         return UserSchema().dump(user)
 
-    def update_pass(self, data_in):
+    def update_pass(self, data_in, user_id):
         user_password_1 = data_in.get("password_1")
         user_password_2 = data_in.get("password_2")
-        user_id = data_in.get("id")
+        # user_id = data_in.get("id")
         user_password = UserDAO(self._db_session).get_by_id(user_id)
         if compare_password(user_password, user_password_1):
             user = UserDAO(self._db_session).update(data_in)
